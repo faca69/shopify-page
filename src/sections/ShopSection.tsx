@@ -37,7 +37,11 @@ const categories: Category[] = [
   },
 ];
 
-export function ShopSection() {
+type ShopSectionProps = {
+  onCategoryClick?: (categoryId: string) => void;
+};
+
+export function ShopSection({ onCategoryClick }: ShopSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -116,6 +120,7 @@ export function ShopSection() {
               key={category.id}
               ref={(el) => { cardsRef.current[index] = el; }}
               className="group relative h-[46vh] rounded-lg overflow-hidden cursor-pointer"
+              onClick={() => onCategoryClick?.(category.id)}
             >
               {/* Background Image */}
               <div className="absolute inset-0 overflow-hidden">

@@ -1,33 +1,55 @@
-import { useState, useEffect } from 'react';
-import { Search, ShoppingBag, Menu, X, Minus, Plus, Trash2 } from 'lucide-react';
-import { useCart } from '@/context/CartContext';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Button } from '@/components/ui/button';
+import { useState, useEffect } from "react";
+import {
+  Search,
+  ShoppingBag,
+  Menu,
+  X,
+  Minus,
+  Plus,
+  Trash2,
+} from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { label: 'Shop', href: '#shop' },
-  { label: 'Learn', href: '#learn' },
-  { label: 'Impact', href: '#impact' },
-  { label: 'Contact', href: '#contact' },
+  { label: "Shop", href: "#shop" },
+  { label: "Learn", href: "#learn" },
+  { label: "Impact", href: "#impact" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { items, totalItems, totalPrice, isCartOpen, setIsCartOpen, updateQuantity, removeFromCart } = useCart();
+  const {
+    items,
+    totalItems,
+    totalPrice,
+    isCartOpen,
+    setIsCartOpen,
+    updateQuantity,
+    removeFromCart,
+  } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
     setIsMobileMenuOpen(false);
   };
@@ -38,7 +60,7 @@ export function Navigation() {
 
     const cartPath = checkoutItems
       .map((item) => `${item.variantId}:${item.quantity}`)
-      .join(',');
+      .join(",");
 
     const checkoutUrl = `https://9zuae1-uh.myshopify.com/cart/${cartPath}`;
     window.location.href = checkoutUrl;
@@ -49,8 +71,8 @@ export function Navigation() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? 'bg-marine-900/95 backdrop-blur-md border-b border-white/5'
-            : 'bg-transparent'
+            ? "bg-marine-900/95 backdrop-blur-md border-b border-white/5"
+            : "bg-transparent"
         }`}
       >
         <div className="w-full px-6 lg:px-12">
@@ -61,7 +83,7 @@ export function Navigation() {
               className="font-display text-lg lg:text-xl font-bold text-white tracking-tight"
               onClick={(e) => {
                 e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
               Health on the Water
@@ -100,14 +122,18 @@ export function Navigation() {
                 </SheetTrigger>
                 <SheetContent className="bg-marine-800 border-marine-700 w-full sm:max-w-md">
                   <SheetHeader>
-                    <SheetTitle className="text-white font-display text-xl">Your Cart</SheetTitle>
+                    <SheetTitle className="text-white font-display text-xl">
+                      Your Cart
+                    </SheetTitle>
                   </SheetHeader>
                   <div className="mt-6 flex flex-col h-[calc(100vh-180px)]">
                     {items.length === 0 ? (
                       <div className="flex-1 flex flex-col items-center justify-center text-center">
                         <ShoppingBag className="w-16 h-16 text-white/20 mb-4" />
                         <p className="text-white/60">Your cart is empty</p>
-                        <p className="text-sm text-white/40 mt-2">Add items to get started</p>
+                        <p className="text-sm text-white/40 mt-2">
+                          Add items to get started
+                        </p>
                       </div>
                     ) : (
                       <>
@@ -123,20 +149,28 @@ export function Navigation() {
                                 className="w-20 h-20 object-cover rounded-md"
                               />
                               <div className="flex-1">
-                                <h4 className="text-white font-medium text-sm">{item.name}</h4>
+                                <h4 className="text-white font-medium text-sm">
+                                  {item.name}
+                                </h4>
                                 <p className="text-teal font-semibold mt-1">
                                   ${item.price.toFixed(2)}
                                 </p>
                                 <div className="flex items-center gap-3 mt-2">
                                   <button
-                                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                    onClick={() =>
+                                      updateQuantity(item.id, item.quantity - 1)
+                                    }
                                     className="p-1 hover:bg-white/10 rounded transition-colors"
                                   >
                                     <Minus className="w-4 h-4 text-white/60" />
                                   </button>
-                                  <span className="text-white text-sm">{item.quantity}</span>
+                                  <span className="text-white text-sm">
+                                    {item.quantity}
+                                  </span>
                                   <button
-                                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                    onClick={() =>
+                                      updateQuantity(item.id, item.quantity + 1)
+                                    }
                                     className="p-1 hover:bg-white/10 rounded transition-colors"
                                   >
                                     <Plus className="w-4 h-4 text-white/60" />
@@ -160,7 +194,8 @@ export function Navigation() {
                             </span>
                           </div>
                           <p className="text-xs text-white/40 mb-4">
-                            Shipping calculated at checkout. 10% donated to ocean restoration.
+                            Shipping calculated at checkout. 10% donated to
+                            ocean restoration.
                           </p>
                           <Button
                             onClick={handleCheckout}
@@ -181,7 +216,11 @@ export function Navigation() {
                 className="lg:hidden p-2 text-white/80 hover:text-white transition-colors"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
-                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {isMobileMenuOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
               </button>
             </div>
           </div>

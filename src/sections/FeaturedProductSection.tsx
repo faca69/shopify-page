@@ -13,7 +13,7 @@ const product = {
   name: "Nano-Emulsified Super Oil Complex",
   description:
     "Fast-absorbing, clean ingredients designed for recovery and focus—built for travelers and athletes.",
-  price: 89.99,
+  price: 79.99,
   image: "/oil.png",
   category: "Supplements",
   features: [
